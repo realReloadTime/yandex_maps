@@ -1,7 +1,6 @@
 import pygame
 import requests
 import sys
-import os
 
 
 def show_map(ll_spn=None, map_type="map", add_params=None):
