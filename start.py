@@ -26,11 +26,22 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYUP and event.key == pygame.K_PAGEUP:
-            size += 1
-        elif event.type == pygame.KEYUP and event.key == pygame.K_PAGEDOWN:
-            size -= 1
-    if 17 < size or size < 1:
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_PAGEUP:
+                size += 1
+            elif event.key == pygame.K_PAGEDOWN:
+                size -= 1
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                coords[1] = int((coords[1] + 1 / (size * 10)) * 10000) / 10000
+            elif event.key == pygame.K_DOWN:
+                coords[1] = int((coords[1] - 1 / (size * 10)) * 10000) / 10000
+            elif event.key == pygame.K_LEFT:
+                coords[0] = int((coords[0] - 1 / (size * 10)) * 10000) / 10000
+            elif event.key == pygame.K_RIGHT:
+                coords[0] = int((coords[0] + 1 / (size * 10)) * 10000) / 10000
+    coords[0], coords[1] = coords[0] % 180, coords[1] % 90
+    if 17 < size:
         size = size % 18 + 1
     text_surface = font.render(f'Координаты: {", ".join(list(map(str, coords)))}, масштабирование: 1 к {size}',
                                True, pygame.Color('black'))
